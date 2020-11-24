@@ -32,6 +32,6 @@ public class Yil extends BaseEntity {
   @JoinColumn( name = "model_id", referencedColumnName = "id")
   private Model model;
   
-  private Integer yil;
+  private Integer name;
   
 }
