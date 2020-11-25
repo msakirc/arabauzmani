@@ -17,19 +17,19 @@ public class BaseEntity {
   
   private Integer konforVotes;
   
-  private Integer konforScore;
+  private Double konforScore;
   
   private Integer estetikVotes;
   
-  private Integer estetikScore;
+  private Double estetikScore;
   
   private Integer fpVotes;
   
-  private Integer fpScore;
+  private Double fpScore;
   
   private Integer overallVotes;
   
-  private Integer overallScore;
+  private Double overallScore;
   
   @Column( name = "text" )
   private String text;

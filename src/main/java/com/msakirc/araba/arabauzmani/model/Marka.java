@@ -19,16 +19,18 @@ public class Marka extends BaseEntity {
   
   private String name;
   
+  private String countryOfOrigin;
+  
   private Integer servisVotes;
   
-  private Integer servisScore;
+  private Double servisScore;
   
   private Integer yedekParcaVotes;
   
-  private Integer yedekParcaScore;
+  private Double yedekParcaScore;
   
   private Integer saglamlikVotes;
   
-  private Integer saglamlikScore;
+  private Double saglamlikScore;
   
 }
