@@ -30,6 +30,11 @@ public class YilController {
   }
   
   
+  @GetMapping( Constants.DETAIL )
+  public ResponseEntity<BaseResponse> detail ( @RequestParam Integer id ) {
+    return ResponseBuilderUtil.createResponse( yilService.findById( id ) );
+  }
+  
   @GetMapping( Constants.COMPARE )
   public ResponseEntity<BaseResponse> compare ( @RequestParam List<Integer> ids ) {
     return ResponseBuilderUtil.createResponse( yilService.compare( ids ) );

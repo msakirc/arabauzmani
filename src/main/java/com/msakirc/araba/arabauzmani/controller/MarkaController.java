@@ -29,6 +29,11 @@ public class MarkaController {
     return ResponseBuilderUtil.createResponse( markaService.findAll() );
   }
   
+  @GetMapping( Constants.DETAIL )
+  public ResponseEntity<BaseResponse> detail ( @RequestParam Integer id ) {
+    return ResponseBuilderUtil.createResponse( markaService.findById( id ) );
+  }
+  
   
   @GetMapping( Constants.COMPARE )
   public ResponseEntity<BaseResponse> compare ( @RequestParam List<Integer> ids ) {

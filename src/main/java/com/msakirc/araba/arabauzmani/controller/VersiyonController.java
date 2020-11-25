@@ -29,7 +29,10 @@ public class VersiyonController {
     return ResponseBuilderUtil.createResponse( versiyonService.findAll( yilId ) );
   }
   
-  
+  @GetMapping( Constants.DETAIL )
+  public ResponseEntity<BaseResponse> detail ( @RequestParam Integer id ) {
+    return ResponseBuilderUtil.createResponse( versiyonService.findById( id ) );
+  }
   
   @GetMapping( Constants.COMPARE )
   public ResponseEntity<BaseResponse> compare ( @RequestParam List<Integer> ids ) {

@@ -31,6 +31,11 @@ public class ModelController {
   }
   
   
+  @GetMapping( Constants.DETAIL )
+  public ResponseEntity<BaseResponse> detail ( @RequestParam Integer id ) {
+    return ResponseBuilderUtil.createResponse( modelService.findById( id ) );
+  }
+  
   @GetMapping( Constants.COMPARE )
   public ResponseEntity<BaseResponse> compare ( @RequestParam List<Integer> ids ) {
     return ResponseBuilderUtil.createResponse( modelService.compare( ids ) );
