@@ -3,8 +3,8 @@ package com.msakirc.araba.arabauzmani.service.impl;
 import com.msakirc.araba.arabauzmani.model.BaseEntity;
 import com.msakirc.araba.arabauzmani.model.Comparison;
 import com.msakirc.araba.arabauzmani.model.Model;
+import com.msakirc.araba.arabauzmani.model.Versiyon;
 import com.msakirc.araba.arabauzmani.model.Voteable;
-import com.msakirc.araba.arabauzmani.model.Yil;
 import com.msakirc.araba.arabauzmani.repository.ModelRepository;
 import com.msakirc.araba.arabauzmani.service.MarkaService;
 import com.msakirc.araba.arabauzmani.service.ModelService;
@@ -37,11 +37,11 @@ public class ModelServiceImpl implements ModelService {
   
   @Override
   public Comparison compare ( List<Integer> ids ) {
-  
+    
     List<BaseEntity> models = ids.stream()
                                  .map( this::findById )
                                  .collect( Collectors.toList() );
-  
+    
     return new Comparison( models, "şimdilik boş" );
   }
   
@@ -59,8 +59,16 @@ public class ModelServiceImpl implements ModelService {
     double newScore;
     
     switch ( field ) {
-      case FP:
-        newScore = voteFp( vote, model );
+      case PERFORMANS:
+        newScore = votePerformans( vote, model );
+        break;
+      
+      case DAYANIKLILIK:
+        newScore = voteDayaniklilik( vote, model );
+        break;
+      
+      case FIYAT:
+        newScore = voteFiyat( vote, model );
         break;
       
       case KONFOR:
@@ -87,7 +95,7 @@ public class ModelServiceImpl implements ModelService {
     double newScore;
     model.setEstetikVotes( model.getEstetikVotes() + vote );
     model.setEstetikScore( model.getEstetikScore() + vote );
-    newScore = model.getEstetikScore().doubleValue() / model.getEstetikVotes().doubleValue();
+    newScore = model.getEstetikScore() / model.getEstetikVotes().doubleValue();
     
     modelRepository.save( ( (Model) model ) );
     markaService.voteEstetik( vote, ( (Model) model ).getMarka() );
@@ -99,7 +107,7 @@ public class ModelServiceImpl implements ModelService {
     double newScore;
     model.setKonforVotes( model.getKonforVotes() + 1 );
     model.setKonforScore( model.getKonforScore() + vote );
-    newScore = model.getKonforScore().doubleValue() / model.getKonforVotes().doubleValue();
+    newScore = model.getKonforScore() / model.getKonforVotes().doubleValue();
     
     modelRepository.save( ( (Model) model ) );
     markaService.voteKonfor( vote, ( (Model) model ).getMarka() );
@@ -107,14 +115,38 @@ public class ModelServiceImpl implements ModelService {
   }
   
   @Override
-  public double voteFp ( Integer vote, BaseEntity model ) {
+  public double votePerformans ( Integer vote, BaseEntity model ) {
     double newScore;
-    model.setFpVotes( model.getFpVotes() + 1 );
-    model.setFpScore( model.getFpScore() + vote );
-    newScore = model.getFpScore().doubleValue() / model.getFpVotes().doubleValue();
+    model.setPerformansVotes( model.getPerformansVotes() + 1 );
+    model.setPerformansScore( model.getPerformansScore() + vote );
+    newScore = model.getPerformansScore() / model.getPerformansVotes().doubleValue();
     
     modelRepository.save( ( (Model) model ) );
-    markaService.voteFp( vote, ( (Model) model ).getMarka() );
+    markaService.votePerformans( vote, ( (Model) model ).getMarka() );
+    return newScore;
+  }
+  
+  @Override
+  public double voteDayaniklilik ( Integer vote, BaseEntity model ) {
+    double newScore;
+    model.setDayaniklilikVotes( model.getDayaniklilikVotes() + 1 );
+    model.setDayaniklilikScore( model.getDayaniklilikScore() + vote );
+    newScore = model.getDayaniklilikScore() / model.getDayaniklilikVotes().doubleValue();
+    
+    modelRepository.save( ( (Model) model ) );
+    markaService.voteDayaniklilik( vote, ( (Model) model ).getMarka() );
+    return newScore;
+  }
+  
+  @Override
+  public double voteFiyat ( Integer vote, BaseEntity model ) {
+    double newScore;
+    model.setFiyatVotes( model.getFiyatVotes() + 1 );
+    model.setFiyatScore( model.getFiyatScore() + vote );
+    newScore = model.getFiyatScore() / model.getFiyatVotes().doubleValue();
+    
+    modelRepository.save( ( (Model) model ) );
+    markaService.voteFiyat( vote, ( (Model) model ).getMarka() );
     return newScore;
   }
   
@@ -123,7 +155,7 @@ public class ModelServiceImpl implements ModelService {
     double newScore;
     model.setOverallVotes( model.getOverallVotes() + 1 );
     model.setOverallScore( model.getOverallScore() + vote );
-    newScore = model.getOverallScore().doubleValue() / model.getOverallVotes().doubleValue();
+    newScore = model.getOverallScore() / model.getOverallVotes().doubleValue();
     
     modelRepository.save( ( (Model) model ) );
     markaService.voteOverall( vote, ( (Model) model ).getMarka() );

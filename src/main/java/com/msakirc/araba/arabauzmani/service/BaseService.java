@@ -16,11 +16,15 @@ public interface BaseService {
   
   double vote ( Voteable field, BaseEntity entity, Integer vote );
   
-  double voteFp ( Integer vote, BaseEntity versiyon );
+  double votePerformans ( Integer vote, BaseEntity versiyon );
   
   double voteKonfor ( Integer vote, BaseEntity versiyon );
   
   double voteEstetik ( Integer vote, BaseEntity versiyon );
+  
+  double voteFiyat ( Integer vote, BaseEntity versiyon );
+  
+  double voteDayaniklilik ( Integer vote, BaseEntity versiyon );
   
   double voteOverall ( Integer vote, BaseEntity versiyon );
 }

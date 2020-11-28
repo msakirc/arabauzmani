@@ -4,9 +4,10 @@ public enum Voteable {
   
   SERVIS,
   YEDEK_PARCA,
-  SAGLAMLIK,
+  PERFORMANS,
+  DAYANIKLILIK,
   ESTETIK,
-  FP,
+  FIYAT,
   KONFOR,
   OVERALL
   

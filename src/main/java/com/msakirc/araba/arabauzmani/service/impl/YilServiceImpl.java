@@ -34,6 +34,7 @@ public class YilServiceImpl implements YilService {
   public List<Yil> findAll ( Integer modelId ) {
     return yilRepository.findByModelId( modelId );
   }
+  
   @Override
   public Comparison compare ( List<Integer> ids ) {
     
@@ -46,7 +47,7 @@ public class YilServiceImpl implements YilService {
   
   @Override
   public double vote ( Voteable field, Integer id, Integer vote ) {
-  
+    
     Yil yil = findById( id );
     return vote( field, yil, vote );
   }
@@ -58,8 +59,16 @@ public class YilServiceImpl implements YilService {
     double newScore;
     
     switch ( field ) {
-      case FP:
-        newScore = voteFp( vote, yil );
+      case PERFORMANS:
+        newScore = votePerformans( vote, yil );
+        break;
+      
+      case DAYANIKLILIK:
+        newScore = voteDayaniklilik( vote, yil );
+        break;
+      
+      case FIYAT:
+        newScore = voteFiyat( vote, yil );
         break;
       
       case KONFOR:
@@ -86,7 +95,7 @@ public class YilServiceImpl implements YilService {
     double newScore;
     yil.setEstetikVotes( yil.getEstetikVotes() + vote );
     yil.setEstetikScore( yil.getEstetikScore() + vote );
-    newScore = yil.getEstetikScore().doubleValue() / yil.getEstetikVotes().doubleValue();
+    newScore = yil.getEstetikScore() / yil.getEstetikVotes().doubleValue();
     
     yilRepository.save( ( (Yil) yil ) );
     modelService.voteEstetik( vote, ( (Yil) yil ).getModel() );
@@ -98,7 +107,7 @@ public class YilServiceImpl implements YilService {
     double newScore;
     yil.setKonforVotes( yil.getKonforVotes() + 1 );
     yil.setKonforScore( yil.getKonforScore() + vote );
-    newScore = yil.getKonforScore().doubleValue() / yil.getKonforVotes().doubleValue();
+    newScore = yil.getKonforScore() / yil.getKonforVotes().doubleValue();
     
     yilRepository.save( ( (Yil) yil ) );
     modelService.voteKonfor( vote, ( (Yil) yil ).getModel() );
@@ -106,14 +115,38 @@ public class YilServiceImpl implements YilService {
   }
   
   @Override
-  public double voteFp ( Integer vote, BaseEntity yil ) {
+  public double votePerformans ( Integer vote, BaseEntity yil ) {
     double newScore;
-    yil.setFpVotes( yil.getFpVotes() + 1 );
-    yil.setFpScore( yil.getFpScore() + vote );
-    newScore = yil.getFpScore().doubleValue() / yil.getFpVotes().doubleValue();
+    yil.setPerformansVotes( yil.getPerformansVotes() + 1 );
+    yil.setPerformansScore( yil.getPerformansScore() + vote );
+    newScore = yil.getPerformansScore() / yil.getPerformansVotes().doubleValue();
+  
+    yilRepository.save( ( (Yil) yil ) );
+    modelService.votePerformans( vote, ( (Yil) yil ).getModel() );
+    return newScore;
+  }
+  
+  @Override
+  public double voteDayaniklilik ( Integer vote, BaseEntity yil ) {
+    double newScore;
+    yil.setDayaniklilikVotes( yil.getDayaniklilikVotes() + 1 );
+    yil.setDayaniklilikScore( yil.getDayaniklilikScore() + vote );
+    newScore = yil.getDayaniklilikScore() / yil.getDayaniklilikVotes().doubleValue();
+  
+    yilRepository.save( ( (Yil) yil ) );
+    modelService.voteDayaniklilik( vote, ( (Yil) yil ).getModel() );
+    return newScore;
+  }
+  
+  @Override
+  public double voteFiyat ( Integer vote, BaseEntity yil ) {
+    double newScore;
+    yil.setFiyatVotes( yil.getFiyatVotes() + 1 );
+    yil.setFiyatScore( yil.getFiyatScore() + vote );
+    newScore = yil.getFiyatScore() / yil.getFiyatVotes().doubleValue();
     
     yilRepository.save( ( (Yil) yil ) );
-    modelService.voteFp( vote, ( (Yil) yil ).getModel() );
+    modelService.voteFiyat( vote, ( (Yil) yil ).getModel() );
     return newScore;
   }
   
@@ -122,7 +155,7 @@ public class YilServiceImpl implements YilService {
     double newScore;
     yil.setOverallVotes( yil.getOverallVotes() + 1 );
     yil.setOverallScore( yil.getOverallScore() + vote );
-    newScore = yil.getOverallScore().doubleValue() / yil.getOverallVotes().doubleValue();
+    newScore = yil.getOverallScore() / yil.getOverallVotes().doubleValue();
     
     yilRepository.save( ( (Yil) yil ) );
     modelService.voteOverall( vote, ( (Yil) yil ).getModel() );

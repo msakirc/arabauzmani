@@ -23,9 +23,17 @@ public class BaseEntity {
   
   private Double estetikScore;
   
-  private Integer fpVotes;
+  private Integer dayaniklilikVotes;
   
-  private Double fpScore;
+  private Double dayaniklilikScore;
+  
+  private Integer performansVotes;
+  
+  private Double performansScore;
+  
+  private Integer fiyatVotes;
+  
+  private Double fiyatScore;
   
   private Integer overallVotes;
   
