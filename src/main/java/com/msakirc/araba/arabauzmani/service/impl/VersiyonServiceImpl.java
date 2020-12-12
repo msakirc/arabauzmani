@@ -63,8 +63,8 @@ public class VersiyonServiceImpl implements VersiyonService {
         newScore = votePerformans( vote, versiyon );
         break;
   
-      case DAYANIKLILIK:
-        newScore = voteDayaniklilik( vote, versiyon );
+      case UZUN_OMURLULUK:
+        newScore = voteUzunOmurluluk( vote, versiyon );
         break;
   
       case FIYAT:
@@ -127,14 +127,14 @@ public class VersiyonServiceImpl implements VersiyonService {
   }
   
   @Override
-  public double voteDayaniklilik ( Integer vote, BaseEntity versiyon ) {
+  public double voteUzunOmurluluk ( Integer vote, BaseEntity versiyon ) {
     double newScore;
-    versiyon.setDayaniklilikVotes( versiyon.getDayaniklilikVotes() + 1 );
-    versiyon.setDayaniklilikScore( versiyon.getDayaniklilikScore() + vote );
-    newScore = versiyon.getDayaniklilikScore() / versiyon.getDayaniklilikVotes().doubleValue();
+    versiyon.setUzunOmurlulukVotes( versiyon.getUzunOmurlulukVotes() + 1 );
+    versiyon.setUzunOmurlulukScore( versiyon.getUzunOmurlulukScore() + vote );
+    newScore = versiyon.getUzunOmurlulukScore() / versiyon.getUzunOmurlulukVotes().doubleValue();
     
     versiyonRepository.save( ( (Versiyon) versiyon ) );
-    yilService.voteDayaniklilik( vote, ( (Versiyon) versiyon ).getYil() );
+    yilService.voteUzunOmurluluk( vote, ( (Versiyon) versiyon ).getYil() );
     return newScore;
   }
   

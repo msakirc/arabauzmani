@@ -24,7 +24,7 @@ public interface BaseService {
   
   double voteFiyat ( Integer vote, BaseEntity versiyon );
   
-  double voteDayaniklilik ( Integer vote, BaseEntity versiyon );
+  double voteUzunOmurluluk ( Integer vote, BaseEntity versiyon );
   
   double voteOverall ( Integer vote, BaseEntity versiyon );
 }

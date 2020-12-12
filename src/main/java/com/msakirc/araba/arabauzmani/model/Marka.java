@@ -29,8 +29,12 @@ public class Marka extends BaseEntity {
   
   private Double yedekParcaScore;
   
-  private Integer saglamlikVotes;
+  private Integer malzemeKalitesiVotes;
   
-  private Double saglamlikScore;
+  private Double malzemeKalitesiScore;
+  
+  private Integer guvenlikVotes;
+  
+  private Double guvenlikScore;
   
 }

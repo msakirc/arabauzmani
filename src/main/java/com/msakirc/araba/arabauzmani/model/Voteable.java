@@ -2,10 +2,12 @@ package com.msakirc.araba.arabauzmani.model;
 
 public enum Voteable {
   
+  GUVENLIK,
   SERVIS,
   YEDEK_PARCA,
+  MALZEME_KALITESI,
   PERFORMANS,
-  DAYANIKLILIK,
+  UZUN_OMURLULUK,
   ESTETIK,
   FIYAT,
   KONFOR,

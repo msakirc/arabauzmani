@@ -3,7 +3,6 @@ package com.msakirc.araba.arabauzmani.service.impl;
 import com.msakirc.araba.arabauzmani.model.BaseEntity;
 import com.msakirc.araba.arabauzmani.model.Comparison;
 import com.msakirc.araba.arabauzmani.model.Model;
-import com.msakirc.araba.arabauzmani.model.Versiyon;
 import com.msakirc.araba.arabauzmani.model.Voteable;
 import com.msakirc.araba.arabauzmani.repository.ModelRepository;
 import com.msakirc.araba.arabauzmani.service.MarkaService;
@@ -63,8 +62,8 @@ public class ModelServiceImpl implements ModelService {
         newScore = votePerformans( vote, model );
         break;
       
-      case DAYANIKLILIK:
-        newScore = voteDayaniklilik( vote, model );
+      case UZUN_OMURLULUK:
+        newScore = voteUzunOmurluluk( vote, model );
         break;
       
       case FIYAT:
@@ -127,14 +126,14 @@ public class ModelServiceImpl implements ModelService {
   }
   
   @Override
-  public double voteDayaniklilik ( Integer vote, BaseEntity model ) {
+  public double voteUzunOmurluluk ( Integer vote, BaseEntity model ) {
     double newScore;
-    model.setDayaniklilikVotes( model.getDayaniklilikVotes() + 1 );
-    model.setDayaniklilikScore( model.getDayaniklilikScore() + vote );
-    newScore = model.getDayaniklilikScore() / model.getDayaniklilikVotes().doubleValue();
+    model.setUzunOmurlulukVotes( model.getUzunOmurlulukVotes() + 1 );
+    model.setUzunOmurlulukScore( model.getUzunOmurlulukScore() + vote );
+    newScore = model.getUzunOmurlulukScore() / model.getUzunOmurlulukVotes().doubleValue();
     
     modelRepository.save( ( (Model) model ) );
-    markaService.voteDayaniklilik( vote, ( (Model) model ).getMarka() );
+    markaService.voteUzunOmurluluk( vote, ( (Model) model ).getMarka() );
     return newScore;
   }
   

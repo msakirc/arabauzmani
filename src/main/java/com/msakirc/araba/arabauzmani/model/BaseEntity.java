@@ -23,9 +23,9 @@ public class BaseEntity {
   
   private Double estetikScore;
   
-  private Integer dayaniklilikVotes;
+  private Integer uzunOmurlulukVotes;
   
-  private Double dayaniklilikScore;
+  private Double uzunOmurlulukScore;
   
   private Integer performansVotes;
   

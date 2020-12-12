@@ -3,7 +3,6 @@ package com.msakirc.araba.arabauzmani.service.impl;
 import com.msakirc.araba.arabauzmani.model.BaseEntity;
 import com.msakirc.araba.arabauzmani.model.Comparison;
 import com.msakirc.araba.arabauzmani.model.Marka;
-import com.msakirc.araba.arabauzmani.model.Versiyon;
 import com.msakirc.araba.arabauzmani.model.Voteable;
 import com.msakirc.araba.arabauzmani.repository.MarkaRepository;
 import com.msakirc.araba.arabauzmani.service.MarkaService;
@@ -63,8 +62,8 @@ public class MarkaServiceImpl implements MarkaService {
         newScore = votePerformans( vote, marka );
         break;
       
-      case DAYANIKLILIK:
-        newScore = voteDayaniklilik( vote, marka );
+      case UZUN_OMURLULUK:
+        newScore = voteUzunOmurluluk( vote, marka );
         break;
       
       case FIYAT:
@@ -94,6 +93,20 @@ public class MarkaServiceImpl implements MarkaService {
         marka.setYedekParcaVotes( marka.getYedekParcaVotes() + 1 );
         marka.setYedekParcaScore( marka.getYedekParcaScore() + vote );
         newScore = marka.getYedekParcaScore() / marka.getYedekParcaVotes().doubleValue();
+        markaRepository.save( marka );
+        break;
+      
+      case MALZEME_KALITESI:
+        marka.setMalzemeKalitesiVotes( marka.getMalzemeKalitesiVotes() + 1 );
+        marka.setMalzemeKalitesiScore( marka.getMalzemeKalitesiScore() + vote );
+        newScore = marka.getMalzemeKalitesiScore() / marka.getMalzemeKalitesiVotes().doubleValue();
+        markaRepository.save( marka );
+        break;
+      
+      case GUVENLIK:
+        marka.setGuvenlikVotes( marka.getGuvenlikVotes() + 1 );
+        marka.setGuvenlikScore( marka.getGuvenlikScore() + vote );
+        newScore = marka.getGuvenlikScore() / marka.getGuvenlikVotes().doubleValue();
         markaRepository.save( marka );
         break;
       
@@ -149,11 +162,11 @@ public class MarkaServiceImpl implements MarkaService {
   }
   
   @Override
-  public double voteDayaniklilik ( Integer vote, BaseEntity marka ) {
+  public double voteUzunOmurluluk ( Integer vote, BaseEntity marka ) {
     double newScore;
-    marka.setDayaniklilikVotes( marka.getDayaniklilikVotes() + 1 );
-    marka.setDayaniklilikScore( marka.getDayaniklilikScore() + vote );
-    newScore = marka.getDayaniklilikScore() / marka.getDayaniklilikVotes().doubleValue();
+    marka.setUzunOmurlulukVotes( marka.getUzunOmurlulukVotes() + 1 );
+    marka.setUzunOmurlulukScore( marka.getUzunOmurlulukScore() + vote );
+    newScore = marka.getUzunOmurlulukScore() / marka.getUzunOmurlulukVotes().doubleValue();
     
     markaRepository.save( ( (Marka) marka ) );
     return newScore;

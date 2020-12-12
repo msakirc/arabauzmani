@@ -2,7 +2,6 @@ package com.msakirc.araba.arabauzmani.service.impl;
 
 import com.msakirc.araba.arabauzmani.model.BaseEntity;
 import com.msakirc.araba.arabauzmani.model.Comparison;
-import com.msakirc.araba.arabauzmani.model.Versiyon;
 import com.msakirc.araba.arabauzmani.model.Voteable;
 import com.msakirc.araba.arabauzmani.model.Yil;
 import com.msakirc.araba.arabauzmani.repository.YilRepository;
@@ -63,8 +62,8 @@ public class YilServiceImpl implements YilService {
         newScore = votePerformans( vote, yil );
         break;
       
-      case DAYANIKLILIK:
-        newScore = voteDayaniklilik( vote, yil );
+      case UZUN_OMURLULUK:
+        newScore = voteUzunOmurluluk( vote, yil );
         break;
       
       case FIYAT:
@@ -127,14 +126,14 @@ public class YilServiceImpl implements YilService {
   }
   
   @Override
-  public double voteDayaniklilik ( Integer vote, BaseEntity yil ) {
+  public double voteUzunOmurluluk ( Integer vote, BaseEntity yil ) {
     double newScore;
-    yil.setDayaniklilikVotes( yil.getDayaniklilikVotes() + 1 );
-    yil.setDayaniklilikScore( yil.getDayaniklilikScore() + vote );
-    newScore = yil.getDayaniklilikScore() / yil.getDayaniklilikVotes().doubleValue();
+    yil.setUzunOmurlulukVotes( yil.getUzunOmurlulukVotes() + 1 );
+    yil.setUzunOmurlulukScore( yil.getUzunOmurlulukScore() + vote );
+    newScore = yil.getUzunOmurlulukScore() / yil.getUzunOmurlulukVotes().doubleValue();
   
     yilRepository.save( ( (Yil) yil ) );
-    modelService.voteDayaniklilik( vote, ( (Yil) yil ).getModel() );
+    modelService.voteUzunOmurluluk( vote, ( (Yil) yil ).getModel() );
     return newScore;
   }
   
