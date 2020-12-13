@@ -1,26 +1,40 @@
 package com.msakirc.araba.arabauzmani.model;
 
-import com.msakirc.araba.arabauzmani.Attribute;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-public class Marka {
-  
-  @Id
-  @GeneratedValue( strategy = GenerationType.IDENTITY )
-  private Integer id;
+@Data
+@Entity
+@EqualsAndHashCode( callSuper = true )
+@Inheritance( strategy = InheritanceType.SINGLE_TABLE )
+@AllArgsConstructor
+@NoArgsConstructor
+public class Marka extends BaseEntity {
   
   private String name;
   
-  private Attribute servisAgi;
+  private String countryOfOrigin;
   
-  private Attribute yedekParca;
+  private Integer servisVotes;
   
-  private Attribute uzunOmurluluk;
+  private Double servisScore;
   
-  private Attribute yakisiklilik;
+  private Integer yedekParcaVotes;
   
-  private Attribute overall;
+  private Double yedekParcaScore;
+  
+  private Integer malzemeKalitesiVotes;
+  
+  private Double malzemeKalitesiScore;
+  
+  private Integer guvenlikVotes;
+  
+  private Double guvenlikScore;
   
 }
