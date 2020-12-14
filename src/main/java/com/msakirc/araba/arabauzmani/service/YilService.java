@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface YilService extends BaseService {
   
-  List<Yil> findAll ( Integer modelId );
+  List<Yil> findAll ( String modelId );
   
 }

@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface ModelService extends BaseService {
   
-  List<Model> findAll ( Integer markaId );
+  List<Model> findAll ( String markaId );
   
 }

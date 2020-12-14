@@ -26,23 +26,23 @@ public class ModelController {
   }
   
   @GetMapping( Constants.FIND_ALL )
-  public ResponseEntity<BaseResponse> all ( @RequestParam Integer markaId ) {
+  public ResponseEntity<BaseResponse> all ( @RequestParam String markaId ) {
     return ResponseBuilderUtil.createResponse( modelService.findAll( markaId ) );
   }
   
   
   @GetMapping( Constants.DETAIL )
-  public ResponseEntity<BaseResponse> detail ( @RequestParam Integer id ) {
+  public ResponseEntity<BaseResponse> detail ( @RequestParam String id ) {
     return ResponseBuilderUtil.createResponse( modelService.findById( id ) );
   }
   
   @GetMapping( Constants.COMPARE )
-  public ResponseEntity<BaseResponse> compare ( @RequestParam List<Integer> ids ) {
+  public ResponseEntity<BaseResponse> compare ( @RequestParam List<String> ids ) {
     return ResponseBuilderUtil.createResponse( modelService.compare( ids ) );
   }
   
   @GetMapping( Constants.VOTE )
-  public ResponseEntity<BaseResponse> vote ( @RequestParam Voteable field, @RequestParam Integer id, @RequestParam int vote ) {
+  public ResponseEntity<BaseResponse> vote ( @RequestParam Voteable field, @RequestParam String id, @RequestParam int vote ) {
     return ResponseBuilderUtil.createResponse( modelService.vote( field, id, vote ) );
   }
 }

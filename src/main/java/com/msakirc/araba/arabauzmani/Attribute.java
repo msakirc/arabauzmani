@@ -8,7 +8,7 @@ public class Attribute {
   
   @Id
   @GeneratedValue( strategy = GenerationType.IDENTITY )
-  private Integer id;
+  private String id;
   
   AttributeType attributeType;
   

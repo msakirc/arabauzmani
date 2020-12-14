@@ -1,4 +1,5 @@
-package com.msakirc.araba.arabauzmani.repository;
+/*
+package com.msakirc.araba.arabauzmani.repository.jpa;
 
 import com.msakirc.araba.arabauzmani.model.Marka;
 import org.springframework.data.repository.CrudRepository;
@@ -8,3 +9,4 @@ import org.springframework.stereotype.Repository;
 public interface MarkaRepository extends CrudRepository<Marka, Integer> {
   
 }
+*/

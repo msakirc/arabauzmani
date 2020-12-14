@@ -4,10 +4,12 @@ import com.msakirc.araba.arabauzmani.model.BaseEntity;
 import com.msakirc.araba.arabauzmani.model.Comparison;
 import com.msakirc.araba.arabauzmani.model.Model;
 import com.msakirc.araba.arabauzmani.model.Voteable;
-import com.msakirc.araba.arabauzmani.repository.ModelRepository;
+import com.msakirc.araba.arabauzmani.repository.firestore.ModelRepository;
 import com.msakirc.araba.arabauzmani.service.MarkaService;
 import com.msakirc.araba.arabauzmani.service.ModelService;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,17 +27,17 @@ public class ModelServiceImpl implements ModelService {
   }
   
   @Override
-  public Model findById ( Integer id ) {
+  public Model findById ( String id ) {
     return modelRepository.findById( id ).orElseThrow( RuntimeException::new );
   }
   
   @Override
-  public List<Model> findAll ( Integer markaId ) {
+  public List<Model> findAll ( String markaId ) {
     return modelRepository.findByMarkaId( markaId );
   }
   
   @Override
-  public Comparison compare ( List<Integer> ids ) {
+  public Comparison compare ( List<String> ids ) {
     
     List<BaseEntity> models = ids.stream()
                                  .map( this::findById )
@@ -45,7 +47,7 @@ public class ModelServiceImpl implements ModelService {
   }
   
   @Override
-  public double vote ( Voteable field, Integer id, Integer vote ) {
+  public double vote ( Voteable field, String id, Integer vote ) {
     
     Model model = findById( id );
     return vote( field, model, vote );
@@ -56,30 +58,33 @@ public class ModelServiceImpl implements ModelService {
     
     Model model = ( (Model) entity );
     double newScore;
+  
+    Map<String, Object> updates = new HashMap<>();
+    updates.put( "id", model.getId() );
     
     switch ( field ) {
       case PERFORMANS:
-        newScore = votePerformans( vote, model );
+        newScore = votePerformans( vote, updates, model );
         break;
       
       case UZUN_OMURLULUK:
-        newScore = voteUzunOmurluluk( vote, model );
+        newScore = voteUzunOmurluluk( vote, updates, model );
         break;
       
       case FIYAT:
-        newScore = voteFiyat( vote, model );
+        newScore = voteFiyat( vote, updates, model );
         break;
       
       case KONFOR:
-        newScore = voteKonfor( vote, model );
+        newScore = voteKonfor( vote, updates, model );
         break;
       
       case ESTETIK:
-        newScore = voteEstetik( vote, model );
+        newScore = voteEstetik( vote, updates, model );
         break;
       
       case OVERALL:
-        newScore = voteOverall( vote, model );
+        newScore = voteOverall( vote, updates, model );
         break;
       
       default:
@@ -90,74 +95,92 @@ public class ModelServiceImpl implements ModelService {
   }
   
   @Override
-  public double voteEstetik ( Integer vote, BaseEntity model ) {
+  public double voteEstetik ( Integer vote, Map<String, Object> updates, BaseEntity model ) {
     double newScore;
     model.setEstetikVotes( model.getEstetikVotes() + vote );
     model.setEstetikScore( model.getEstetikScore() + vote );
     newScore = model.getEstetikScore() / model.getEstetikVotes().doubleValue();
     
-    modelRepository.save( ( (Model) model ) );
-    markaService.voteEstetik( vote, ( (Model) model ).getMarka() );
+    updates.put( "estetikVotes", model.getEstetikVotes() );
+    updates.put( "estetikScore", model.getEstetikScore() );
+  
+    // modelRepository.save( ( (Model) model ) );
+    markaService.voteEstetik( vote, updates, ( (Model) model ).getMarka() );
     return newScore;
   }
   
   @Override
-  public double voteKonfor ( Integer vote, BaseEntity model ) {
+  public double voteKonfor ( Integer vote, Map<String, Object> updates, BaseEntity model ) {
     double newScore;
     model.setKonforVotes( model.getKonforVotes() + 1 );
     model.setKonforScore( model.getKonforScore() + vote );
     newScore = model.getKonforScore() / model.getKonforVotes().doubleValue();
-    
-    modelRepository.save( ( (Model) model ) );
-    markaService.voteKonfor( vote, ( (Model) model ).getMarka() );
+  
+    updates.put( "konforVotes", model.getKonforVotes() );
+    updates.put( "konforScore", model.getKonforScore() );
+  
+    // modelRepository.save( ( (Model) model ) );
+    markaService.voteKonfor( vote, updates, ( (Model) model ).getMarka() );
     return newScore;
   }
   
   @Override
-  public double votePerformans ( Integer vote, BaseEntity model ) {
-    double newScore;
-    model.setPerformansVotes( model.getPerformansVotes() + 1 );
-    model.setPerformansScore( model.getPerformansScore() + vote );
-    newScore = model.getPerformansScore() / model.getPerformansVotes().doubleValue();
-    
-    modelRepository.save( ( (Model) model ) );
-    markaService.votePerformans( vote, ( (Model) model ).getMarka() );
-    return newScore;
-  }
-  
-  @Override
-  public double voteUzunOmurluluk ( Integer vote, BaseEntity model ) {
-    double newScore;
-    model.setUzunOmurlulukVotes( model.getUzunOmurlulukVotes() + 1 );
-    model.setUzunOmurlulukScore( model.getUzunOmurlulukScore() + vote );
-    newScore = model.getUzunOmurlulukScore() / model.getUzunOmurlulukVotes().doubleValue();
-    
-    modelRepository.save( ( (Model) model ) );
-    markaService.voteUzunOmurluluk( vote, ( (Model) model ).getMarka() );
-    return newScore;
-  }
-  
-  @Override
-  public double voteFiyat ( Integer vote, BaseEntity model ) {
+  public double voteFiyat ( Integer vote, Map<String, Object> updates, BaseEntity model ) {
     double newScore;
     model.setFiyatVotes( model.getFiyatVotes() + 1 );
     model.setFiyatScore( model.getFiyatScore() + vote );
     newScore = model.getFiyatScore() / model.getFiyatVotes().doubleValue();
-    
-    modelRepository.save( ( (Model) model ) );
-    markaService.voteFiyat( vote, ( (Model) model ).getMarka() );
+  
+    updates.put( "fiyatVotes", model.getFiyatVotes() );
+    updates.put( "fiyatScore", model.getFiyatScore() );
+  
+    // modelRepository.save( ( (Model) model ) );
+    markaService.voteFiyat( vote, updates, ( (Model) model ).getMarka() );
     return newScore;
   }
   
   @Override
-  public double voteOverall ( Integer vote, BaseEntity model ) {
+  public double votePerformans ( Integer vote, Map<String, Object> updates, BaseEntity model ) {
+    double newScore;
+    model.setPerformansVotes( model.getPerformansVotes() + 1 );
+    model.setPerformansScore( model.getPerformansScore() + vote );
+    newScore = model.getPerformansScore() / model.getPerformansVotes().doubleValue();
+  
+    updates.put( "performansVotes", model.getPerformansVotes() );
+    updates.put( "performansScore", model.getPerformansScore() );
+  
+    // modelRepository.save( ( (Model) model ) );
+    markaService.votePerformans( vote, updates, ( (Model) model ).getMarka() );
+    return newScore;
+  }
+  
+  @Override
+  public double voteUzunOmurluluk ( Integer vote, Map<String, Object> updates, BaseEntity model ) {
+    double newScore;
+    model.setUzunOmurlulukVotes( model.getUzunOmurlulukVotes() + 1 );
+    model.setUzunOmurlulukScore( model.getUzunOmurlulukScore() + vote );
+    newScore = model.getUzunOmurlulukScore() / model.getUzunOmurlulukVotes().doubleValue();
+  
+    updates.put( "uzunOmurlulukVotes", model.getUzunOmurlulukVotes() );
+    updates.put( "uzunOmurlulukScore", model.getUzunOmurlulukScore() );
+  
+    // modelRepository.save( ( (Model) model ) );
+    markaService.voteUzunOmurluluk( vote, updates, ( (Model) model ).getMarka() );
+    return newScore;
+  }
+  
+  @Override
+  public double voteOverall ( Integer vote, Map<String, Object> updates, BaseEntity model ) {
     double newScore;
     model.setOverallVotes( model.getOverallVotes() + 1 );
     model.setOverallScore( model.getOverallScore() + vote );
     newScore = model.getOverallScore() / model.getOverallVotes().doubleValue();
-    
-    modelRepository.save( ( (Model) model ) );
-    markaService.voteOverall( vote, ( (Model) model ).getMarka() );
+  
+    updates.put( "overallVotes", model.getOverallVotes() );
+    updates.put( "overallScore", model.getOverallScore() );
+  
+    // modelRepository.save( ( (Model) model ) );
+    markaService.voteOverall( vote, updates, ( (Model) model ).getMarka() );
     return newScore;
   }
   

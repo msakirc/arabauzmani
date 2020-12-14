@@ -25,22 +25,22 @@ public class VersiyonController {
   }
   
   @GetMapping( Constants.FIND_ALL )
-  public ResponseEntity<BaseResponse> all ( @RequestParam Integer yilId ) {
+  public ResponseEntity<BaseResponse> all ( @RequestParam String yilId ) {
     return ResponseBuilderUtil.createResponse( versiyonService.findAll( yilId ) );
   }
   
   @GetMapping( Constants.DETAIL )
-  public ResponseEntity<BaseResponse> detail ( @RequestParam Integer id ) {
+  public ResponseEntity<BaseResponse> detail ( @RequestParam String id ) {
     return ResponseBuilderUtil.createResponse( versiyonService.findById( id ) );
   }
   
   @GetMapping( Constants.COMPARE )
-  public ResponseEntity<BaseResponse> compare ( @RequestParam List<Integer> ids ) {
+  public ResponseEntity<BaseResponse> compare ( @RequestParam List<String> ids ) {
     return ResponseBuilderUtil.createResponse( versiyonService.compare( ids ) );
   }
   
   @GetMapping( Constants.VOTE )
-  public ResponseEntity<BaseResponse> vote ( @RequestParam Voteable field, @RequestParam Integer id, @RequestParam int vote ) {
+  public ResponseEntity<BaseResponse> vote ( @RequestParam Voteable field, @RequestParam String id, @RequestParam int vote ) {
     return ResponseBuilderUtil.createResponse( versiyonService.vote( field, id, vote ) );
   }
   

@@ -1,4 +1,5 @@
-package com.msakirc.araba.arabauzmani.repository;
+/*
+package com.msakirc.araba.arabauzmani.repository.jpa;
 
 import com.msakirc.araba.arabauzmani.model.Marka;
 import com.msakirc.araba.arabauzmani.model.Model;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VersiyonRepository extends CrudRepository<Versiyon, Integer> {
   
-  List<Versiyon> findByYilId ( Integer yilId );
+  List<Versiyon> findByYilId ( String yilId );
   
 }
+*/

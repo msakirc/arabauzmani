@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface VersiyonService extends BaseService {
   
-  List<Versiyon> findAll ( Integer yilId );
+  List<Versiyon> findAll ( String yilId );
 }

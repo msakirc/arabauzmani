@@ -2,29 +2,29 @@ package com.msakirc.araba.arabauzmani.service;
 
 import com.msakirc.araba.arabauzmani.model.BaseEntity;
 import com.msakirc.araba.arabauzmani.model.Comparison;
-import com.msakirc.araba.arabauzmani.model.Versiyon;
 import com.msakirc.araba.arabauzmani.model.Voteable;
 import java.util.List;
+import java.util.Map;
 
 public interface BaseService {
   
-  BaseEntity findById ( Integer id );
+  BaseEntity findById ( String id );
   
-  Comparison compare ( List<Integer> ids );
+  Comparison compare ( List<String> ids );
   
-  double vote ( Voteable field, Integer id, Integer vote );
+  double vote ( Voteable field, String id, Integer vote );
   
   double vote ( Voteable field, BaseEntity entity, Integer vote );
   
-  double votePerformans ( Integer vote, BaseEntity versiyon );
+  double  votePerformans ( Integer vote, Map<String, Object> updates, BaseEntity marka );
   
-  double voteKonfor ( Integer vote, BaseEntity versiyon );
+  double voteKonfor ( Integer vote, Map<String, Object> updates, BaseEntity marka );
   
-  double voteEstetik ( Integer vote, BaseEntity versiyon );
+  double voteEstetik ( Integer vote, Map<String, Object> updates, BaseEntity marka );
   
-  double voteFiyat ( Integer vote, BaseEntity versiyon );
+  double voteFiyat ( Integer vote, Map<String, Object> updates, BaseEntity marka );
   
-  double voteUzunOmurluluk ( Integer vote, BaseEntity versiyon );
+  double voteUzunOmurluluk ( Integer vote, Map<String, Object> updates, BaseEntity marka );
   
-  double voteOverall ( Integer vote, BaseEntity versiyon );
+  double voteOverall ( Integer vote, Map<String, Object> updates, BaseEntity marka );
 }
