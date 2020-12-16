@@ -8,38 +8,34 @@ import javax.persistence.MappedSuperclass;
 import lombok.Data;
 
 @Data
-@MappedSuperclass
 public class BaseEntity {
   
-  @Id
-  @GeneratedValue( strategy = GenerationType.IDENTITY )
-  private String id;
+  protected String id;
   
-  private Integer konforVotes;
+  protected Integer konforVotes;
   
-  private Double konforScore;
+  protected Double konforScore;
   
-  private Integer estetikVotes;
+  protected Integer estetikVotes;
   
-  private Double estetikScore;
+  protected Double estetikScore;
   
-  private Integer uzunOmurlulukVotes;
+  protected Integer uzunOmurlulukVotes;
   
-  private Double uzunOmurlulukScore;
+  protected Double uzunOmurlulukScore;
   
-  private Integer performansVotes;
+  protected Integer performansVotes;
   
-  private Double performansScore;
+  protected Double performansScore;
   
-  private Integer fiyatVotes;
+  protected Integer fiyatVotes;
   
-  private Double fiyatScore;
+  protected Double fiyatScore;
   
-  private Integer overallVotes;
+  protected Integer overallVotes;
   
-  private Double overallScore;
+  protected Double overallScore;
   
-  @Column( name = "text" )
-  private String text;
+  protected String text;
   
 }

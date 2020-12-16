@@ -24,19 +24,13 @@ import lombok.EqualsAndHashCode;
 @Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
 public class Versiyon extends BaseEntity {
   
-  @OneToOne( cascade = CascadeType.MERGE )
-  @JoinColumn( name = "marka_id", referencedColumnName = "id")
-  private Marka marka;
+  protected String markaId;
   
-  @OneToOne( cascade = CascadeType.MERGE )
-  @JoinColumn( name = "model_id", referencedColumnName = "id")
-  private Model model;
+  protected String modelId;
   
-  @OneToOne( cascade = CascadeType.MERGE )
-  @JoinColumn( name = "yil_id", referencedColumnName = "id")
-  private Yil yil;
+  protected String yilId;
   
-  private String name;
+  protected String name;
   
   
 }

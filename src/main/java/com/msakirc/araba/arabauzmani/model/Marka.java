@@ -17,24 +17,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Marka extends BaseEntity {
   
-  private String name;
+  protected String name;
   
-  private String countryOfOrigin;
+  protected String countryOfOrigin;
   
-  private Integer servisVotes;
+  protected Integer servisVotes;
   
-  private Double servisScore;
+  protected Double servisScore;
   
-  private Integer yedekParcaVotes;
+  protected Integer yedekParcaVotes;
   
-  private Double yedekParcaScore;
+  protected Double yedekParcaScore;
   
-  private Integer malzemeKalitesiVotes;
+  protected Integer malzemeKalitesiVotes;
   
-  private Double malzemeKalitesiScore;
+  protected Double malzemeKalitesiScore;
   
-  private Integer guvenlikVotes;
+  protected Integer guvenlikVotes;
   
-  private Double guvenlikScore;
+  protected Double guvenlikScore;
   
 }

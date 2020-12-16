@@ -2,29 +2,33 @@ package com.msakirc.araba.arabauzmani.service.impl;
 
 import com.msakirc.araba.arabauzmani.model.BaseEntity;
 import com.msakirc.araba.arabauzmani.model.Comparison;
+import com.msakirc.araba.arabauzmani.model.Model;
 import com.msakirc.araba.arabauzmani.model.Versiyon;
 import com.msakirc.araba.arabauzmani.model.Voteable;
 import com.msakirc.araba.arabauzmani.repository.firestore.VersiyonRepository;
 import com.msakirc.araba.arabauzmani.service.VersiyonService;
 import com.msakirc.araba.arabauzmani.service.YilService;
+import com.msakirc.araba.arabauzmani.util.EntityConverter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 @Service
 public class VersiyonServiceImpl implements VersiyonService {
   
   private final VersiyonRepository versiyonRepository;
-  
   private final YilService yilService;
+  private final EntityConverter entityConverter;
   
   @Autowired
-  public VersiyonServiceImpl ( VersiyonRepository versiyonRepository, YilService yilService ) {
+  public VersiyonServiceImpl ( VersiyonRepository versiyonRepository, YilService yilService, @Lazy EntityConverter entityConverter ) {
     this.versiyonRepository = versiyonRepository;
     this.yilService = yilService;
+    this.entityConverter = entityConverter;
   }
   
   @Override
@@ -106,7 +110,8 @@ public class VersiyonServiceImpl implements VersiyonService {
     updates.put( "estetikScore", versiyon.getEstetikScore() );
   
     // versiyonRepository.save( ( (Versiyon) versiyon ) );
-    yilService.voteEstetik( vote, updates, ( (Versiyon) versiyon ).getYil() );
+    BaseEntity yil = yilService.findById( ( (Versiyon) versiyon ).getYilId() );
+    yilService.voteEstetik( vote, updates, yil );
     return newScore;
   }
   
@@ -121,7 +126,8 @@ public class VersiyonServiceImpl implements VersiyonService {
     updates.put( "konforScore", versiyon.getKonforScore() );
   
     // versiyonRepository.save( ( (Versiyon) versiyon ) );
-    yilService.voteKonfor( vote, updates, ( (Versiyon) versiyon ).getYil() );
+    BaseEntity yil = yilService.findById( ( (Versiyon) versiyon ).getYilId() );
+    yilService.voteKonfor( vote, updates, yil );
     return newScore;
   }
   
@@ -136,7 +142,8 @@ public class VersiyonServiceImpl implements VersiyonService {
     updates.put( "fiyatScore", versiyon.getFiyatScore() );
   
     // versiyonRepository.save( ( (Versiyon) versiyon ) );
-    yilService.voteFiyat( vote, updates, ( (Versiyon) versiyon ).getYil() );
+    BaseEntity yil = yilService.findById( ( (Versiyon) versiyon ).getYilId() );
+    yilService.voteFiyat( vote, updates, yil );
     return newScore;
   }
   
@@ -151,7 +158,8 @@ public class VersiyonServiceImpl implements VersiyonService {
     updates.put( "performansScore", versiyon.getPerformansScore() );
   
     // versiyonRepository.save( ( (Versiyon) versiyon ) );
-    yilService.votePerformans( vote, updates, ( (Versiyon) versiyon ).getYil() );
+    BaseEntity yil = yilService.findById( ( (Versiyon) versiyon ).getYilId() );
+    yilService.votePerformans( vote, updates, yil );
     return newScore;
   }
   
@@ -166,7 +174,8 @@ public class VersiyonServiceImpl implements VersiyonService {
     updates.put( "uzunOmurlulukScore", versiyon.getUzunOmurlulukScore() );
   
     // versiyonRepository.save( ( (Versiyon) versiyon ) );
-    yilService.voteUzunOmurluluk( vote, updates, ( (Versiyon) versiyon ).getYil() );
+    BaseEntity yil = yilService.findById( ( (Versiyon) versiyon ).getYilId() );
+    yilService.voteUzunOmurluluk( vote, updates, yil );
     return newScore;
   }
   
@@ -181,7 +190,8 @@ public class VersiyonServiceImpl implements VersiyonService {
     updates.put( "overallScore", versiyon.getOverallScore() );
   
     // versiyonRepository.save( ( (Versiyon) versiyon ) );
-    yilService.voteOverall( vote, updates, ( (Versiyon) versiyon ).getYil() );
+    BaseEntity yil = yilService.findById( ( (Versiyon) versiyon ).getYilId() );
+    yilService.voteOverall( vote, updates, yil );
     return newScore;
   }
   

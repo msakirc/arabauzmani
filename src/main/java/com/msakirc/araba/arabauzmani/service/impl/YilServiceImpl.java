@@ -2,16 +2,19 @@ package com.msakirc.araba.arabauzmani.service.impl;
 
 import com.msakirc.araba.arabauzmani.model.BaseEntity;
 import com.msakirc.araba.arabauzmani.model.Comparison;
+import com.msakirc.araba.arabauzmani.model.Versiyon;
 import com.msakirc.araba.arabauzmani.model.Voteable;
 import com.msakirc.araba.arabauzmani.model.Yil;
 import com.msakirc.araba.arabauzmani.repository.firestore.YilRepository;
 import com.msakirc.araba.arabauzmani.service.ModelService;
 import com.msakirc.araba.arabauzmani.service.YilService;
+import com.msakirc.araba.arabauzmani.util.EntityConverter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,11 +22,13 @@ public class YilServiceImpl implements YilService {
   
   private final YilRepository yilRepository;
   private final ModelService modelService;
+  private final EntityConverter entityConverter;
   
   @Autowired
-  public YilServiceImpl ( YilRepository yilRepository, ModelService modelService ) {
+  public YilServiceImpl ( YilRepository yilRepository, ModelService modelService, @Lazy EntityConverter entityConverter  ) {
     this.yilRepository = yilRepository;
     this.modelService = modelService;
+    this.entityConverter = entityConverter;
   }
   
   @Override
@@ -105,7 +110,8 @@ public class YilServiceImpl implements YilService {
     updates.put( "estetikScore", yil.getEstetikScore() );
   
     // yilRepository.save( ( (Yil) yil ) );
-    modelService.voteEstetik( vote, updates, ( (Yil) yil ).getModel() );
+    BaseEntity model = modelService.findById( ( (Yil) yil ).getModelId() );
+    modelService.voteEstetik( vote, updates, model );
     return newScore;
   }
   
@@ -120,7 +126,8 @@ public class YilServiceImpl implements YilService {
     updates.put( "konforScore", yil.getKonforScore() );
   
     // yilRepository.save( ( (Yil) yil ) );
-    modelService.voteKonfor( vote, updates, ( (Yil) yil ).getModel() );
+    BaseEntity model = modelService.findById( ( (Yil) yil ).getModelId() );
+    modelService.voteKonfor( vote, updates, model );
     return newScore;
   }
   
@@ -135,7 +142,8 @@ public class YilServiceImpl implements YilService {
     updates.put( "fiyatScore", yil.getFiyatScore() );
   
     // yilRepository.save( ( (Yil) yil ) );
-    modelService.voteFiyat( vote, updates, ( (Yil) yil ).getModel() );
+    BaseEntity model = modelService.findById( ( (Yil) yil ).getModelId() );
+    modelService.voteFiyat( vote, updates, model );
     return newScore;
   }
   
@@ -150,7 +158,8 @@ public class YilServiceImpl implements YilService {
     updates.put( "performansScore", yil.getPerformansScore() );
   
     // yilRepository.save( ( (Yil) yil ) );
-    modelService.votePerformans( vote, updates, ( (Yil) yil ).getModel() );
+    BaseEntity model = modelService.findById( ( (Yil) yil ).getModelId() );
+    modelService.votePerformans( vote, updates, model );
     return newScore;
   }
   
@@ -165,7 +174,8 @@ public class YilServiceImpl implements YilService {
     updates.put( "uzunOmurlulukScore", yil.getUzunOmurlulukScore() );
   
     // yilRepository.save( ( (Yil) yil ) );
-    modelService.voteUzunOmurluluk( vote, updates, ( (Yil) yil ).getModel() );
+    BaseEntity model = modelService.findById( ( (Yil) yil ).getModelId() );
+    modelService.voteUzunOmurluluk( vote, updates, model );
     return newScore;
   }
   
@@ -180,7 +190,8 @@ public class YilServiceImpl implements YilService {
     updates.put( "overallScore", yil.getOverallScore() );
   
     // yilRepository.save( ( (Yil) yil ) );
-    modelService.voteOverall( vote, updates, ( (Yil) yil ).getModel() );
+    BaseEntity model = modelService.findById( ( (Yil) yil ).getModelId() );
+    modelService.voteOverall( vote, updates, model );
     return newScore;
   }
   

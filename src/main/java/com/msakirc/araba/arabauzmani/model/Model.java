@@ -1,5 +1,6 @@
 package com.msakirc.araba.arabauzmani.model;
 
+import io.swagger.models.auth.In;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -24,9 +25,7 @@ import lombok.EqualsAndHashCode;
 @Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
 public class Model extends BaseEntity {
   
-  @OneToOne( cascade = CascadeType.ALL )
-  @JoinColumn( referencedColumnName = "id")
-  private Marka marka;
+  protected String markaId;
   
-  private String name;
+  protected String name;
 }

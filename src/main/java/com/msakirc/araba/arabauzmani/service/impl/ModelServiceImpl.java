@@ -105,7 +105,8 @@ public class ModelServiceImpl implements ModelService {
     updates.put( "estetikScore", model.getEstetikScore() );
   
     // modelRepository.save( ( (Model) model ) );
-    markaService.voteEstetik( vote, updates, ( (Model) model ).getMarka() );
+    BaseEntity marka = markaService.findById( ( (Model) model ).getMarkaId() );
+    markaService.voteEstetik( vote, updates, marka );
     return newScore;
   }
   
@@ -120,7 +121,8 @@ public class ModelServiceImpl implements ModelService {
     updates.put( "konforScore", model.getKonforScore() );
   
     // modelRepository.save( ( (Model) model ) );
-    markaService.voteKonfor( vote, updates, ( (Model) model ).getMarka() );
+    BaseEntity marka = markaService.findById( ( (Model) model ).getMarkaId() );
+    markaService.voteKonfor( vote, updates, marka );
     return newScore;
   }
   
@@ -135,7 +137,8 @@ public class ModelServiceImpl implements ModelService {
     updates.put( "fiyatScore", model.getFiyatScore() );
   
     // modelRepository.save( ( (Model) model ) );
-    markaService.voteFiyat( vote, updates, ( (Model) model ).getMarka() );
+    BaseEntity marka = markaService.findById( ( (Model) model ).getMarkaId() );
+    markaService.voteFiyat( vote, updates, marka );
     return newScore;
   }
   
@@ -150,7 +153,8 @@ public class ModelServiceImpl implements ModelService {
     updates.put( "performansScore", model.getPerformansScore() );
   
     // modelRepository.save( ( (Model) model ) );
-    markaService.votePerformans( vote, updates, ( (Model) model ).getMarka() );
+    BaseEntity marka = markaService.findById( ( (Model) model ).getMarkaId() );
+    markaService.votePerformans( vote, updates, marka );
     return newScore;
   }
   
@@ -165,7 +169,8 @@ public class ModelServiceImpl implements ModelService {
     updates.put( "uzunOmurlulukScore", model.getUzunOmurlulukScore() );
   
     // modelRepository.save( ( (Model) model ) );
-    markaService.voteUzunOmurluluk( vote, updates, ( (Model) model ).getMarka() );
+    BaseEntity marka = markaService.findById( ( (Model) model ).getMarkaId() );
+    markaService.voteUzunOmurluluk( vote, updates, marka );
     return newScore;
   }
   
@@ -180,7 +185,8 @@ public class ModelServiceImpl implements ModelService {
     updates.put( "overallScore", model.getOverallScore() );
   
     // modelRepository.save( ( (Model) model ) );
-    markaService.voteOverall( vote, updates, ( (Model) model ).getMarka() );
+    BaseEntity marka = markaService.findById( ( (Model) model ).getMarkaId() );
+    markaService.voteOverall( vote, updates, marka );
     return newScore;
   }
   

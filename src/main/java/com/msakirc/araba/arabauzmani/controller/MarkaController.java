@@ -1,9 +1,13 @@
 package com.msakirc.araba.arabauzmani.controller;
 
+import com.msakirc.araba.arabauzmani.dto.MarkaDto;
+import com.msakirc.araba.arabauzmani.model.BaseEntity;
+import com.msakirc.araba.arabauzmani.model.Marka;
 import com.msakirc.araba.arabauzmani.model.Voteable;
 import com.msakirc.araba.arabauzmani.response.BaseResponse;
 import com.msakirc.araba.arabauzmani.service.MarkaService;
 import com.msakirc.araba.arabauzmani.util.Constants;
+import com.msakirc.araba.arabauzmani.util.EntityConverter;
 import com.msakirc.araba.arabauzmani.util.ResponseBuilderUtil;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping( "/marka" )
 public class MarkaController {
   
-  private MarkaService markaService;
+  private final MarkaService markaService;
+  private final EntityConverter entityConverter;
   
   @Autowired
-  public MarkaController ( MarkaService markaService ) {
+  public MarkaController ( MarkaService markaService, EntityConverter entityConverter ) {
     this.markaService = markaService;
+    this.entityConverter = entityConverter;
   }
   
   @GetMapping( Constants.FIND_ALL )
@@ -31,7 +37,9 @@ public class MarkaController {
   
   @GetMapping( Constants.DETAIL )
   public ResponseEntity<BaseResponse> detail ( @RequestParam String id ) {
-    return ResponseBuilderUtil.createResponse( markaService.findById( id ) );
+    BaseEntity marka = markaService.findById( id );
+    MarkaDto markaDto = entityConverter.convertMarkaDto( (Marka) marka );
+    return ResponseBuilderUtil.createResponse( markaDto );
   }
   
   

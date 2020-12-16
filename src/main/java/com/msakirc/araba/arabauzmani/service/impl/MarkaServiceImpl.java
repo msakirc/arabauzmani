@@ -6,7 +6,7 @@ import com.msakirc.araba.arabauzmani.model.Marka;
 import com.msakirc.araba.arabauzmani.model.Voteable;
 import com.msakirc.araba.arabauzmani.repository.firestore.MarkaRepository;
 import com.msakirc.araba.arabauzmani.service.MarkaService;
-import java.util.ArrayList;
+import com.msakirc.araba.arabauzmani.util.EntityConverter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
