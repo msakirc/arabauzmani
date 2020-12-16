@@ -98,20 +98,20 @@
 			<version>${swagger.version}</version>
 		</dependency>
 
-		<!--  hibernate -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-spatial</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>6.1.5.Final</version>
-		</dependency>
+		<!--&lt;!&ndash;  hibernate &ndash;&gt;-->
+		<!--<dependency>-->
+		<!--	<groupId>org.hibernate</groupId>-->
+		<!--	<artifactId>hibernate-entitymanager</artifactId>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+		<!--	<groupId>org.hibernate</groupId>-->
+		<!--	<artifactId>hibernate-spatial</artifactId>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+		<!--	<groupId>org.hibernate</groupId>-->
+		<!--	<artifactId>hibernate-validator</artifactId>-->
+		<!--	<version>6.1.5.Final</version>-->
+		<!--</dependency>-->
 
 	</dependencies>
 
