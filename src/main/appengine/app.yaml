@@ -1,0 +1,10 @@
+runtime: java11
+instance_class: F1
+env_variables:
+  PORT: 5959
+
+entrypoint: java -Xmx64m -jar arabauzmani-0.0.1-SNAPSHOT.jar
+
+automatic_scaling:
+  min_instances: 1
+  max_instances: 10

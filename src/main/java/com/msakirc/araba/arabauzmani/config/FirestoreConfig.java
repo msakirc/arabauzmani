@@ -17,7 +17,7 @@ public class FirestoreConfig {
     
     FirestoreOptions firestoreOptions =
         FirestoreOptions.getDefaultInstance().toBuilder()
-                        .setProjectId( "araba-uzmani" )
+                        .setProjectId( "arabauzmani" )
                         .setCredentials( GoogleCredentials.getApplicationDefault() )
                         .build();
     

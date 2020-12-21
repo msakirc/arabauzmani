@@ -16,7 +16,7 @@
 
 	<properties>
 		<java.veUserrsion>11</java.veUserrsion>
-		<swagger.version>2.9.2</swagger.version>
+		<swagger.version>3.0.0</swagger.version>
 	</properties>
 
 	<dependencies>
@@ -92,11 +92,7 @@
 			<artifactId>springfox-swagger2</artifactId>
 			<version>${swagger.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>${swagger.version}</version>
-		</dependency>
+
 
 		<!--&lt;!&ndash;  hibernate &ndash;&gt;-->
 		<!--<dependency>-->
@@ -132,6 +128,15 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>appengine-maven-plugin</artifactId>
+				<version>2.2.0</version>
+				<configuration>
+					<deploy.projectId>arabauzmani</deploy.projectId>
+					<deploy.version>v0-0-1-alpha</deploy.version>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
